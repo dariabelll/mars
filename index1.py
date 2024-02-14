@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import json
 
 app = Flask(__name__)
 
@@ -23,6 +24,14 @@ def prof(listt):
              "Врач",
              "Экзобиолог"]
     return render_template('prof.html', listt=listt, proff=proff)
+
+
+@app.route('/answer')
+@app.route('/auto_answer')
+def answer():
+    with open("ans.json", "rt", encoding="utf8") as f:
+        ans = json.loads(f.read())
+    return render_template('auto_answer.html', ans=ans, title=ans['title'])
 
 
 if __name__ == '__main__':
