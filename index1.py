@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
+from loginform import LoginForm
 import json
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 @app.route('/<name>')
 @app.route('/index/<name>')
@@ -32,6 +33,14 @@ def answer():
     with open("ans.json", "rt", encoding="utf8") as f:
         ans = json.loads(f.read())
     return render_template('auto_answer.html', ans=ans, title=ans['title'])
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('login.html', title='Аварийный доступ', form=form)
 
 
 if __name__ == '__main__':
