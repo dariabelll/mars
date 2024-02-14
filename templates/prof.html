@@ -7,10 +7,12 @@
             {% for item in proff %}
             <li>{{item}}</li> {% endfor %}
         </ul>
- {% else %}
+ {% elif listt == 'ol' %}
         <ol>
             {% for item in proff %}
             <li>{{item}}</li> {% endfor %}
         </ol>
+ {% else %}
+    <div>Неверный параметр</div>
  {% endif %}
 {% endblock %}
